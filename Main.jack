@@ -5,7 +5,8 @@ class Main
         var RaceGame game;
         let game = RaceGame.new();
         // do game.run();
-        do game.draw();
+        do game.draw(0);
+        do game.draw(480);
         return;
     }
 }
