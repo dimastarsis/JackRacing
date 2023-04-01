@@ -1,0 +1,40 @@
+class RaceGame {
+   field Car car;
+
+   constructor RaceGame new() {
+      // Creates a 30 by 30 pixels square and positions it at the top-left
+      // of the screen.
+      // let car = Car.new(0, 0, 30);
+      // let direction = 0;  // initial state is no movement
+      return this;
+   }
+
+   method void draw() {
+        var int memAddress; 
+        let memAddress = 16384;
+        // column 0
+        do Memory.poke(memAddress, 127);
+        do Memory.poke(memAddress +32, 65);
+        do Memory.poke(memAddress +64, 65);
+        do Memory.poke(memAddress +96, 65);
+        do Memory.poke(memAddress +128, 65);
+        do Memory.poke(memAddress +160, 65);
+        do Memory.poke(memAddress +192, 65);
+        do Memory.poke(memAddress +224, 65);
+        do Memory.poke(memAddress +256, 65);
+        do Memory.poke(memAddress +288, 65);
+        do Memory.poke(memAddress +320, 65);
+        do Memory.poke(memAddress +352, 127);
+        return;
+    }
+
+
+   method void dispose() {
+      // do car.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+}
+
+
+
