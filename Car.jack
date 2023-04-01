@@ -6,7 +6,7 @@ class Car
    {
       let x = Ax;
       let y = Ay;
-      do draw(0);
+      do draw();
       return this;
    }
 
@@ -59,6 +59,13 @@ class Car
         do Memory.poke(memAddress +288, 0);
         do Memory.poke(memAddress +320, 0);
         do Memory.poke(memAddress +352, 0);
+      return;
+   }
+
+   method void move(int direction)
+   {
+      if (direction = 1) { do moveUp(1); }
+      if (direction = 2) { do moveDown(1); }
       return;
    }
 

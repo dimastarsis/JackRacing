@@ -13,7 +13,6 @@ class RaceGame {
       //initialize car
       let direction = 0;
       let car = Car.new(0, 0);
-      do car.draw(0);
 
       return this;
    }
@@ -22,7 +21,6 @@ class RaceGame {
    method void run() {
       var char key;  // the key currently pressed by the user
       var boolean exit;
-      var RaceGame newGame;
       let exit = false;
       
       while (~exit) {
@@ -30,7 +28,6 @@ class RaceGame {
          while (key = 0) {
             let key = Keyboard.keyPressed();
             //do moveSquare()
-            do car.draw(direction);
          }
          if (key = 81)  { let exit = true; }     // q key
          //82 r
@@ -42,8 +39,8 @@ class RaceGame {
          // waits for the key to be released
          while (~(key = 0)) {
             let key = Keyboard.keyPressed();
-            //do moveSquare();
-            do car.draw(direction);
+            do Sys.wait(10);
+            do car.move(direction);
          }
      } // while
      return;
