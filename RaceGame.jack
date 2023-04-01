@@ -28,7 +28,8 @@ class RaceGame {
          // waits for a key to be pressed
          while (key = 0) {
             let key = Keyboard.keyPressed();
-            //do moveSquare();
+            //do moveSquare()
+            do car.draw(direction);
          }
          if (key = 81)  { let exit = true; }     // q key
          if (key = 131) { let direction = 1; }   // up arrow
@@ -40,6 +41,7 @@ class RaceGame {
          while (~(key = 0)) {
             let key = Keyboard.keyPressed();
             //do moveSquare();
+            do car.draw(direction);
          }
      } // while
      return;

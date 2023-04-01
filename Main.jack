@@ -4,6 +4,7 @@ class Main
     {
         var RaceGame game;
         let game = RaceGame.new();
+        do game.run();
         return;
     }
 }
