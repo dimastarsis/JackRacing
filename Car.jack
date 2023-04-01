@@ -6,7 +6,7 @@ class Car
    constructor Car new(int Ax, int Ay) {
       let x = Ax;
       let y = Ay;
-      do draw();
+      do draw(0);
       return this;
    }
 
@@ -40,24 +40,6 @@ class Car
    method void erase() {
       do Screen.setColor(false);
       do Screen.drawRectangle(x, y, x + size, y + size);
-      return;
-   }
-
-   method void incSize() {
-      if (((y + size) < 254) & ((x + size) < 510)) {
-         do erase();
-         let size = size + 2;
-         do draw();
-      }
-      return;
-   }
-
-   method void decSize() {
-      if (size > 2) {
-         do erase();
-         let size = size - 2;
-         do draw();
-      }
       return;
    }
 
