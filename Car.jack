@@ -15,24 +15,27 @@ class Car
       return;
    }
 
-   method void draw() {
-    var int memAddress; 
-    let memAddress = 16384;
-    // column 0
-    do Memory.poke(memAddress, 127);
-    do Memory.poke(memAddress +32, 65);
-    do Memory.poke(memAddress +64, 65);
-    do Memory.poke(memAddress +96, 65);
-    do Memory.poke(memAddress +128, 65);
-    do Memory.poke(memAddress +160, 65);
-    do Memory.poke(memAddress +192, 65);
-    do Memory.poke(memAddress +224, 65);
-    do Memory.poke(memAddress +256, 65);
-    do Memory.poke(memAddress +288, 65);
-    do Memory.poke(memAddress +320, 65);
-    do Memory.poke(memAddress +352, 127);
-    return;
-   }
+
+   method void draw(int location) {
+      var int memAddress; 
+      let memAddress = 16384+location;
+      // column 0
+      do Memory.poke(memAddress, 255);
+      do Memory.poke(memAddress +32, 129);
+      do Memory.poke(memAddress +64, 129);
+      do Memory.poke(memAddress +96, 129);
+      do Memory.poke(memAddress +128, 255);
+      do Memory.poke(memAddress +160, 129);
+      do Memory.poke(memAddress +192, 129);
+      do Memory.poke(memAddress +224, 129);
+      do Memory.poke(memAddress +256, 255);
+      do Memory.poke(memAddress +288, 129);
+      do Memory.poke(memAddress +320, 129);
+      do Memory.poke(memAddress +352, 129);
+      do Memory.poke(memAddress +384, 255);
+      return;
+    }
+
 
    method void erase() {
       do Screen.setColor(false);
