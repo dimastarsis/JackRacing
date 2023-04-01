@@ -22,6 +22,7 @@ class RaceGame {
    method void run() {
       var char key;  // the key currently pressed by the user
       var boolean exit;
+      var RaceGame newGame;
       let exit = false;
       
       while (~exit) {
@@ -32,6 +33,7 @@ class RaceGame {
             do car.draw(direction);
          }
          if (key = 81)  { let exit = true; }     // q key
+         //82 r
          if (key = 131) { let direction = 1; }   // up arrow
          if (key = 133) { let direction = 2; }   // down arrow
          if (key = 130) { let direction = 3; }   // left arrow
