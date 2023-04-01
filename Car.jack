@@ -6,7 +6,7 @@ class Car
    {
       let x = Ax;
       let y = Ay;
-      do draw();
+      do draw(0);
       return this;
    }
 

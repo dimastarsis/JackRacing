@@ -1,12 +1,52 @@
 class RaceGame {
-   field Car car;
+   field Car car; // the car of this game
+   field int direction; // the car's current direction: 
+                        // 0=none, 1=up, 2=down, 3=left, 4=right
 
    constructor RaceGame new() {
       // Creates a 30 by 30 pixels square and positions it at the top-left
       // of the screen.
       // let car = Car.new(0, 0, 30);
       // let direction = 0;  // initial state is no movement
+
+
+      //initialize car
+      let direction = 0;
+      let car = Car.new(0, 0);
+      do car.draw(0);
+
       return this;
+   }
+
+   /** Runs the game: handles the user's inputs and moves the car accordingly */
+   method void run() {
+      var char key;  // the key currently pressed by the user
+      var boolean exit;
+      var RaceGame newGame;
+      let exit = false;
+      
+      while (~exit) {
+         // waits for a key to be pressed
+         while (key = 0) {
+            let key = Keyboard.keyPressed();
+            //do moveSquare()
+            do car.draw(direction);
+         }
+         if (key = 81)  { let exit = true; }     // q key
+         //82 r
+         if (key = 131) { let direction = 1; }   // up arrow
+         if (key = 133) { let direction = 2; }   // down arrow
+         if (key = 130) { let direction = 3; }   // left arrow
+         if (key = 132) { let direction = 4; }   // right arrow
+
+         // waits for the key to be released
+         while (~(key = 0)) {
+            let key = Keyboard.keyPressed();
+            //do moveSquare();
+            do car.draw(direction);
+         }
+     } // while
+     return;
    }
    
    method void dispose() {
