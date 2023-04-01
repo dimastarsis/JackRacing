@@ -1,99 +1,112 @@
 class Car 
 {
    field int x, y;
-   field int size;
 
-   constructor Car new(int Ax, int Ay) {
+   constructor Car new(int Ax, int Ay)
+   {
       let x = Ax;
       let y = Ay;
       do draw();
       return this;
    }
 
-   method void dispose() {
+   method void dispose()
+   {
       do Memory.deAlloc(this);
       return;
    }
 
+   method void draw()
+    {
+        var int location;
+        var int memAddress; 
 
-   method void draw(int location) {
-      var int memAddress; 
-      let memAddress = 16384+location;
-      // column 0
-      do Memory.poke(memAddress, 255);
-      do Memory.poke(memAddress +32, 129);
-      do Memory.poke(memAddress +64, 129);
-      do Memory.poke(memAddress +96, 129);
-      do Memory.poke(memAddress +128, 255);
-      do Memory.poke(memAddress +160, 129);
-      do Memory.poke(memAddress +192, 129);
-      do Memory.poke(memAddress +224, 129);
-      do Memory.poke(memAddress +256, 255);
-      do Memory.poke(memAddress +288, 129);
-      do Memory.poke(memAddress +320, 129);
-      do Memory.poke(memAddress +352, 129);
-      do Memory.poke(memAddress +384, 255);
-      return;
+        let location = (32 * y) + x;
+        let memAddress = 16384+location;
+        // column 0
+        do Memory.poke(memAddress, 255);
+        do Memory.poke(memAddress +32, 129);
+        do Memory.poke(memAddress +64, 129);
+        do Memory.poke(memAddress +96, 129);
+        do Memory.poke(memAddress +128, 255);
+        do Memory.poke(memAddress +160, 129);
+        do Memory.poke(memAddress +192, 129);
+        do Memory.poke(memAddress +224, 255);
+        do Memory.poke(memAddress +256, 129);
+        do Memory.poke(memAddress +288, 129);
+        do Memory.poke(memAddress +320, 129);
+        do Memory.poke(memAddress +352, 255);
+        return;
     }
 
+   method void erase()
+   {
+        var int location;
+        var int memAddress; 
 
-   method void erase() {
-      do Screen.setColor(false);
-      do Screen.drawRectangle(x, y, x + size, y + size);
+        let location = (32 * y) + x;
+        let memAddress = 16384+location;
+        // column 0
+        do Memory.poke(memAddress, 0);
+        do Memory.poke(memAddress +32, 0);
+        do Memory.poke(memAddress +64, 0);
+        do Memory.poke(memAddress +96, 0);
+        do Memory.poke(memAddress +128, 0);
+        do Memory.poke(memAddress +160, 0);
+        do Memory.poke(memAddress +192, 0);
+        do Memory.poke(memAddress +224, 0);
+        do Memory.poke(memAddress +256, 0);
+        do Memory.poke(memAddress +288, 0);
+        do Memory.poke(memAddress +320, 0);
+        do Memory.poke(memAddress +352, 0);
       return;
    }
 
-   method void incSize() {
-      if (((y + size) < 254) & ((x + size) < 510)) {
-         do erase();
-         let size = size + 2;
-         do draw();
+   method void moveUp(int dy)
+   {
+    var int location;
+    var int memAddress; 
+    if (y > dy)
+    {
+        do erase();
+        let y = y - dy;
+        let location = 32*y + x; 
+        do draw();
+    }
+    return;
+   }
+
+   method void moveDown(int dy)
+   {
+    var int memAddress; 
+    var int location;
+    if ((y + 12 + dy) < 254)
+    {   
+        do erase(); 
+        let y = y + dy;
+        let location = 32*y + x; 
+        do draw();
       }
       return;
    }
 
-   method void decSize() {
-      if (size > 2) {
-         do erase();
-         let size = size - 2;
-         do draw();
-      }
-      return;
-   }
-
-   method void moveUp() {
-      if (y > 1) {
-         do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
-         let y = y - 2;
-         do Screen.drawRectangle(x, y, x + size, y + 1);
-      }
-      return;
-   }
-
-   method void moveDown() {
-      if ((y + size) < 254) {
-         do Screen.drawRectangle(x, y, x + size, y + 1);
-         let y = y + 2;
-         do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
-      }
-      return;
-   }
-
-   method void moveLeft() {
+/**
+   method void moveLeft(int dx) {
       if (x > 1) {
          do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
-         let x = x - 2;
+         let x = x - dx;
          do Screen.drawRectangle(x, y, x + 1, y + size);
       }
       return;
    }
 
-   method void moveRight() {
+   method void moveRight(int dx) {
       if ((x + size) < 510) {
          do Screen.drawRectangle(x, y, x + 1, y + size);
-         let x = x + 2;
+         let x = x + dx;
          do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
       }
       return;
    }
+*/
 }
