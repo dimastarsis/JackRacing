@@ -26,22 +26,26 @@ class RaceGame {
          while (key = 0) {
             let key = Keyboard.keyPressed();
             do road.markingsMove();
+            do playerCar.draw();
             do Sys.wait(10);
          }
+
          do road.markingsMove();
-         if (key = 81)  { let exit = true; }     // q key
+         do playerCar.draw();
+
          //82 r
-         if (key = 131) { let direction = 1; }   // up arrow
-         if (key = 133) { let direction = 3; }   // down arrow
+         if (key = 81)  { let exit = true; }     // q key
          if (key = 130) { let direction = 4; }   // left arrow
          if (key = 132) { let direction = 2; }   // right arrow
 
          // waits for the key to be released
          while (~(key = 0)) {
             let key = Keyboard.keyPressed();
+            
             do Sys.wait(10);
             do playerCar.move(direction);
             do road.markingsMove();
+            do playerCar.draw();
          }
      } // while
      return;
