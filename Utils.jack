@@ -1,0 +1,20 @@
+class Utils
+{
+    function int mod(int number, int base)
+    {
+      while (number > (base-1))
+      {
+        let number = number - base;
+      }
+      return number;
+    }
+
+    function int abs(int number)
+    {
+      if (number < 0)
+      {
+        let number = -number;
+      }
+      return number;
+    }
+  }
