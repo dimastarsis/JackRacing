@@ -104,8 +104,8 @@ class PlayerCar
 
    method void move(int direction)
    {
-      if (direction = 2) { do moveSide(1); }
-      if (direction = 4) { do moveSide(-1); }
+      if (direction = 2) { do moveSide(2); }
+      if (direction = 4) { do moveSide(-2); }
       return;
    }
 

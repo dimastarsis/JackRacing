@@ -19,35 +19,27 @@ class RaceGame {
    method void run() {
       var char key;  // the key currently pressed by the user
       var boolean exit;
+      var int time;
+
       let exit = false;
+      let time = 0;
       
       while (~exit) {
-         // waits for a key to be pressed
-         while (key = 0) {
-            let key = Keyboard.keyPressed();
-            do road.markingsMove();
-            do playerCar.draw();
-            do Sys.wait(10);
-         }
+         let key = Keyboard.keyPressed();
 
-         do road.markingsMove();
-         do playerCar.draw();
-
-         //82 r
          if (key = 81)  { let exit = true; }     // q key
          if (key = 130) { let direction = 4; }   // left arrow
          if (key = 132) { let direction = 2; }   // right arrow
 
-         // waits for the key to be released
-         while (~(key = 0)) {
-            let key = Keyboard.keyPressed();
-            
-            do Sys.wait(10);
-            do playerCar.move(direction);
+         let time = time + 1;
+         if (time = 1250)
+         {
             do road.markingsMove();
-            do playerCar.draw();
+            if (key = 0) { do playerCar.draw(); }
+            else { do playerCar.move(direction); }
+            let time = 0;
          }
-     } // while
+      }
      return;
    }
    
