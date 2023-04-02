@@ -1,0 +1,31 @@
+class Road
+{
+    field int x;
+
+    /** Initialize road  */
+   constructor Road new()
+   {
+        let x = 0;
+        do drawBorders();
+        return this;
+   }
+
+    /** Draw left and right game borders */
+   method void drawBorders()
+   {
+        var int memAddress;
+        var int offset; 
+        
+        let offset = 0;
+        let memAddress = 16384;
+        
+        while (offset < 8192)
+        {
+            do Memory.poke(memAddress + offset, 3); //draw part of left border
+            do Memory.poke(memAddress + 1 + offset, 6144); ////draw part of right border
+            let offset = offset + 32;
+        }
+
+        return;
+   }  
+}

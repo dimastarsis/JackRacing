@@ -2,17 +2,15 @@ class RaceGame {
    field Car car; // the car of this game
    field int direction; // the car's current direction: 
                         // 0=none, 1=up, 2=down, 3=left, 4=right
+   field Road borders;                     
 
    constructor RaceGame new() {
-      // Creates a 30 by 30 pixels square and positions it at the top-left
-      // of the screen.
-      // let car = Car.new(0, 0, 30);
-      // let direction = 0;  // initial state is no movement
-
-
       //initialize car
       let direction = 0;
       let car = Car.new(0, 0);
+
+      //initialize road
+      let borders = Road.new();
 
       return this;
    }
@@ -25,6 +23,7 @@ class RaceGame {
       
       while (~exit) {
          // waits for a key to be pressed
+
          while (key = 0) {
             let key = Keyboard.keyPressed();
             //do moveSquare()
