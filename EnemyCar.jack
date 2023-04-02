@@ -1,0 +1,89 @@
+class EnemyCar 
+{
+   field int x, y, _multindex;
+   field Array _locations, _values, _multipliers;
+   
+   constructor EnemyCar new(int Ax, int Ay)
+   {
+      let x = Ax;
+      let y = Ay;
+
+      do draw();
+      return this;
+   }
+
+   method void dispose()
+   {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   method void draw()
+    {
+        var int location;
+        var int memAddress; 
+        var int i;
+
+        let location = (32 * y) + x;
+        let memAddress = 16384+location;
+        
+        do Memory.poke(memAddress, 1820);
+        do Memory.poke(memAddress +32, 2210);
+        do Memory.poke(memAddress +64, 4161);
+        do Memory.poke(memAddress +96, 4097);
+        do Memory.poke(memAddress +128, 4097);
+        do Memory.poke(memAddress +160, 2050);
+        do Memory.poke(memAddress +192, 1820);
+        do Memory.poke(memAddress +224, 272);
+        do Memory.poke(memAddress +256, 272);
+        do Memory.poke(memAddress +288, 272);
+        do Memory.poke(memAddress +320, 272);
+        do Memory.poke(memAddress +352, 272);
+        do Memory.poke(memAddress +384, 520);
+        do Memory.poke(memAddress +416, 520);
+        do Memory.poke(memAddress +448, 336);
+        do Memory.poke(memAddress +480, 224);
+
+        return;
+    }
+
+   method void erase()
+   {
+        var int location;
+        var int memAddress; 
+        var int i;
+
+        let location = (32 * y) + x;
+        let memAddress = 16384+location;
+
+        do Memory.poke(memAddress, 0);
+        do Memory.poke(memAddress +32, 0);
+        do Memory.poke(memAddress +64, 0);
+        do Memory.poke(memAddress +96, 0);
+        do Memory.poke(memAddress +128, 0);
+        do Memory.poke(memAddress +160, 0);
+        do Memory.poke(memAddress +192, 0);
+        do Memory.poke(memAddress +224, 0);
+        do Memory.poke(memAddress +256, 0);
+        do Memory.poke(memAddress +288, 0);
+        do Memory.poke(memAddress +320, 0);
+        do Memory.poke(memAddress +352, 0);
+        do Memory.poke(memAddress +384, 0);
+        do Memory.poke(memAddress +416, 0);
+        do Memory.poke(memAddress +448, 0);
+        do Memory.poke(memAddress +480, 0);
+      return;
+   }
+
+   method void moveForward(int dy)
+   {
+    var int memAddress; 
+    if ((y - dy) > 1 & (y + 16 - dy) < 255)
+    {
+        do erase();
+        let y = y - dy;
+        do draw();
+    }
+    return;
+   }
+}
