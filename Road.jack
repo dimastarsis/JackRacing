@@ -103,14 +103,7 @@ class Road
    method void markingsMove()
    {
         do eraseMarkings();
-        if (markingPosition > 9) //TODO написать модуль
-        {
-            let markingPosition = 0;
-        }
-        else
-        {
-            let markingPosition = markingPosition + 1;
-        }    
+        let markingPosition = Utils.mod(markingPosition + 1, 12);    
         do drawMarkings();
         return;
    }
