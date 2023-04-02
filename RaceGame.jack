@@ -1,16 +1,16 @@
 class RaceGame {
-   field Car car; // the car of this game
+   field PlayerCar playerCar; // the car of this game
    field int direction; // the car's current direction: 
                         // 0=none, 1=up, 2=down, 3=left, 4=right
-   field Road borders;                     
+   field Road road;                     
 
    constructor RaceGame new() {
       //initialize car
       let direction = 0;
-      let car = Car.new(0, 0);
+      let playerCar = PlayerCar.new(0, 0);
 
       //initialize road
-      let borders = Road.new();
+      let road = Road.new();
 
       return this;
    }
@@ -23,11 +23,12 @@ class RaceGame {
       
       while (~exit) {
          // waits for a key to be pressed
-
          while (key = 0) {
             let key = Keyboard.keyPressed();
-            //do moveSquare()
+            do road.markingsMove();
+            do Sys.wait(10);
          }
+         do road.markingsMove();
          if (key = 81)  { let exit = true; }     // q key
          //82 r
          if (key = 131) { let direction = 1; }   // up arrow
@@ -39,7 +40,8 @@ class RaceGame {
          while (~(key = 0)) {
             let key = Keyboard.keyPressed();
             do Sys.wait(10);
-            do car.move(direction);
+            do playerCar.move(direction);
+            do road.markingsMove();
          }
      } // while
      return;

@@ -6,5 +6,6 @@ class Main
         let game = RaceGame.new();
         do game.run();
         return;
+        
     }
 }

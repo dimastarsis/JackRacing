@@ -1,12 +1,13 @@
 class Road
 {
-    field int x;
+    field int markingPosition; 
 
     /** Initialize road  */
    constructor Road new()
    {
-        let x = 0;
+        let markingPosition = 0;
         do drawBorders();
+        do drawMarkings();
         return this;
    }
 
@@ -22,10 +23,95 @@ class Road
         while (offset < 8192)
         {
             do Memory.poke(memAddress + offset, 3); //draw part of left border
-            do Memory.poke(memAddress + 1 + offset, 6144); ////draw part of right border
+            do Memory.poke(memAddress + 11 + offset, 6); //draw part of right border
             let offset = offset + 32;
         }
 
         return;
    }  
+
+    /** Draw road markings */
+   method void drawMarkings()
+   {
+        var int memAddress;
+        var int offset;
+
+        let offset = 0;
+        let memAddress = 16384;
+
+        while (offset < 8192)
+        {
+            //draw part of first marking
+            do Memory.poke(memAddress +2 + offset + (32*markingPosition), 8192);
+            do Memory.poke(memAddress +34 + offset + (32*markingPosition), 8192);
+            do Memory.poke(memAddress +66 + offset + (32*markingPosition), 8192);
+            do Memory.poke(memAddress +98 + offset + (32*markingPosition), 8192);
+            
+            //draw part of second marking
+            do Memory.poke(memAddress +5 + offset + (32*markingPosition), 512);
+            do Memory.poke(memAddress +37 + offset + (32*markingPosition), 512);
+            do Memory.poke(memAddress +69 + offset + (32*markingPosition), 512);
+            do Memory.poke(memAddress +101 + offset + (32*markingPosition), 512);
+            
+            //draw part of third marking
+            do Memory.poke(memAddress +8 + offset + (32*markingPosition), 32);
+            do Memory.poke(memAddress +40 + offset + (32*markingPosition), 32);
+            do Memory.poke(memAddress +72 + offset + (32*markingPosition), 32);
+            do Memory.poke(memAddress +104 + offset + (32*markingPosition), 32);
+
+            let offset = offset + 512;
+        }
+        return;
+   }
+    
+
+    /** Erase road markings */
+   method void eraseMarkings()
+   {
+        var int memAddress;
+        var int offset;
+
+        let offset = 0;
+        let memAddress = 16384;
+
+        while (offset < 8192)
+        {
+            //draw part of first marking
+            do Memory.poke(memAddress +2 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +34 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +66 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +98 + offset + (32*markingPosition), 0);
+            
+            //draw part of second marking
+            do Memory.poke(memAddress +5 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +37 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +69 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +101 + offset + (32*markingPosition), 0);
+            
+            //draw part of third marking
+            do Memory.poke(memAddress +8 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +40 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +72 + offset + (32*markingPosition), 0);
+            do Memory.poke(memAddress +104 + offset + (32*markingPosition), 0);
+
+            let offset = offset + 512;
+        }
+        return;
+   }
+
+    /** The marking is moving down */
+   method void markingsMove()
+   {
+        do eraseMarkings();
+        if (markingPosition > 8) //TODO написать модуль
+        {
+            let markingPosition = 0;
+        }
+        else
+        {
+            let markingPosition = markingPosition + 1;
+        }    
+        do drawMarkings();
+        return;
+   }
 }
