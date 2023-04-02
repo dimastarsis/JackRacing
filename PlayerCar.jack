@@ -8,7 +8,7 @@ class PlayerCar
       let x = Ax;
       let y = Ay;
 
-      let _multipliers = Array.new(9);
+      let _multipliers = Array.new(8);
       let _multipliers[0] = 1;
       let _multipliers[1] = 2;
       let _multipliers[2] = 4;
@@ -17,7 +17,6 @@ class PlayerCar
       let _multipliers[5] = 32;
       let _multipliers[6] = 64;
       let _multipliers[7] = 128;
-      let _multipliers[8] = -1;
 
       let _locations = Array.new(16);
       let _locations[0] = 0;
@@ -118,15 +117,15 @@ class PlayerCar
 
         let _multindex = _multindex + dx;
 
-        while (_multindex > 8)
+        while (_multindex > 7)
         {
-         let _multindex = _multindex - 9;
+         let _multindex = _multindex - 8;
          let x = x + 1;
         }
 
         while (_multindex < 0)
         {
-         let _multindex = _multindex + 9;
+         let _multindex = _multindex + 8;
          let x = x - 1;
         }
 
