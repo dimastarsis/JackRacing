@@ -24,18 +24,21 @@ class Car
         let location = (32 * y) + x;
         let memAddress = 16384+location;
         // column 0
-        do Memory.poke(memAddress, 255);
-        do Memory.poke(memAddress +32, 129);
-        do Memory.poke(memAddress +64, 129);
-        do Memory.poke(memAddress +96, 129);
+        do Memory.poke(memAddress, 195);
+        do Memory.poke(memAddress +32, 255);
+        do Memory.poke(memAddress +64, 255);
+        do Memory.poke(memAddress +96, 255);
         do Memory.poke(memAddress +128, 255);
-        do Memory.poke(memAddress +160, 129);
-        do Memory.poke(memAddress +192, 129);
+        do Memory.poke(memAddress +160, 255);
+        do Memory.poke(memAddress +192, 255);
         do Memory.poke(memAddress +224, 255);
-        do Memory.poke(memAddress +256, 129);
-        do Memory.poke(memAddress +288, 129);
-        do Memory.poke(memAddress +320, 129);
+        do Memory.poke(memAddress +256, 255);
+        do Memory.poke(memAddress +288, 255);
+        do Memory.poke(memAddress +320, 255);
         do Memory.poke(memAddress +352, 255);
+        do Memory.poke(memAddress +384, 255);
+        do Memory.poke(memAddress +416, 255);
+        do Memory.poke(memAddress +448, 255);
         return;
     }
 
@@ -59,61 +62,45 @@ class Car
         do Memory.poke(memAddress +288, 0);
         do Memory.poke(memAddress +320, 0);
         do Memory.poke(memAddress +352, 0);
+        do Memory.poke(memAddress +384, 0);
+        do Memory.poke(memAddress +416, 0);
+        do Memory.poke(memAddress +448, 0);
       return;
    }
 
    method void move(int direction)
    {
-      if (direction = 1) { do moveUp(1); }
-      if (direction = 2) { do moveDown(1); }
+      if (direction = 1) { do moveForward(1); }
+      if (direction = 2) { do moveSide(1); }
+      if (direction = 3) { do moveForward(-1); }
+      if (direction = 4) { do moveSide(-1); }
       return;
    }
 
-   method void moveUp(int dy)
+   method void moveForward(int dy)
    {
     var int location;
     var int memAddress; 
-    if (y > dy)
+    if ((y - dy) > 1 & (y + 16 - dy) < 255)
     {
         do erase();
         let y = y - dy;
-        let location = 32*y + x; 
+        let location = (32 * y) + x;
         do draw();
     }
     return;
    }
 
-   method void moveDown(int dy)
-   {
+   method void moveSide(int dx) {
     var int memAddress; 
     var int location;
-    if ((y + 12 + dy) < 254)
+    if ((x + dx) > 1 & (x + 8 + dx) < 510)
     {   
         do erase(); 
-        let y = y + dy;
-        let location = 32*y + x; 
+        let x = x + dx;
+        let location = (32 * y) + x;
         do draw();
       }
       return;
    }
-
-/**
-   method void moveLeft(int dx) {
-      if (x > 1) {
-         do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
-         let x = x - dx;
-         do Screen.drawRectangle(x, y, x + 1, y + size);
-      }
-      return;
-   }
-
-   method void moveRight(int dx) {
-      if ((x + size) < 510) {
-         do Screen.drawRectangle(x, y, x + 1, y + size);
-         let x = x + dx;
-         do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
-      }
-      return;
-   }
-*/
 }
