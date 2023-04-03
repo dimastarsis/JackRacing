@@ -75,6 +75,7 @@ class EnemyCar
       return;
    }
 
+   //do Screen.drawRectangle(x, y, x + xSize, y + ySize);
    method void moveForward(int dy)
    {
     var int memAddress; 
