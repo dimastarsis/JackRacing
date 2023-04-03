@@ -5,8 +5,8 @@ class Road
    constructor Road new()
    {
      let offset = 0;
-     let markingLength = 18;
-     let spaceLength = 36;
+     let markingLength = 40;
+     let spaceLength = 108;
      return this;
    }
 
@@ -17,13 +17,10 @@ class Road
      let i = offset;
      while (i + markingLength + offset < 511)
      {
-          do Screen.drawLine(i+offset, 63, i+(markingLength-1)+offset, 63);
-          do Screen.drawLine(i+offset, 64, i+(markingLength-1)+offset, 64);
-          do Screen.drawLine(i+offset, 127, i+(markingLength-1)+offset, 127);
-          do Screen.drawLine(i+offset, 128, i+(markingLength-1)+offset, 128);
-          do Screen.drawLine(i+offset, 191, i+(markingLength-1)+offset, 191);
-          do Screen.drawLine(i+offset, 192, i+(markingLength-1)+offset, 192);
-          let i = i + (markingLength-1) + offset + spaceLength;
+          do Screen.drawLine(i + offset, 64, i + (markingLength-1) + offset, 64);
+          do Screen.drawLine(i + offset, 128, i + (markingLength-1) + offset, 128);
+          do Screen.drawLine(i + offset, 192, i + (markingLength-1) + offset, 192);
+          let i = i + spaceLength;
      }
      return;
    }
