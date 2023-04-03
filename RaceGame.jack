@@ -29,10 +29,10 @@ class RaceGame {
          if (tick = 5000)
          {
             if (key = 81)  { let exit = true; }     // q key
-            if (key = 130) { do playerCar.move(-5, 0); }   // left arrow
-            if (key = 131) { do playerCar.move(0, -5); }   // up arrow
-            if (key = 132) { do playerCar.move(5, 0); }   // right arrow
-            if (key = 133) { do playerCar.move(0, 5); }   // down arrow   
+            if (key = 130) { do playerCar.move(-10, 0); }   // left arrow
+            if (key = 131) { do playerCar.move(0, -10); }   // up arrow
+            if (key = 132) { do playerCar.move(10, 0); }   // right arrow
+            if (key = 133) { do playerCar.move(0, 10); }   // down arrow   
 
             do Screen.clearScreen();
             do road.moveMarking();
