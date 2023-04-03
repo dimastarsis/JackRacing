@@ -25,7 +25,12 @@ class RaceGame {
          let key = Keyboard.keyPressed();
 
          let tick = tick + 1;
-         if (tick = 500)
+         if (tick = 3000)
+         {
+            do road.moveMarking();
+         }
+         
+         if (tick = 1000 | tick = 2000 | tick = 3000)
          {
             if (key = 81)  { let exit = true; }     // q key
             if (key = 130) { do playerCar.move(-1, 0); }   // left arrow
@@ -35,7 +40,6 @@ class RaceGame {
 
             do Screen.clearScreen();
             do road.drawMarking();
-            do road.moveMarking();
             do playerCar.draw();
             let tick = 0;
          }

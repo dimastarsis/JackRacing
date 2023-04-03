@@ -1,29 +1,29 @@
 class Road
 {
-    field int offset; 
+    field int offset, markingLength, spaceLength; 
 
    constructor Road new()
    {
      let offset = 0;
+     let markingLength = 18;
+     let spaceLength = 36;
      return this;
    }
 
-   // TODO: make marking longer (to do less iterations in loop)
-   // TODO: create field markingLength
    method void drawMarking()
    {
      var int i;
 
      let i = offset;
-     while (i + 2 + offset < 511)
+     while (i + markingLength + offset < 511)
      {
-          do Screen.drawLine(i+offset, 63, i+2+offset, 63);
-          do Screen.drawLine(i+offset, 64, i+2+offset, 64);
-          do Screen.drawLine(i+offset, 127, i+2+offset, 127);
-          do Screen.drawLine(i+offset, 128, i+2+offset, 128);
-          do Screen.drawLine(i+offset, 191, i+2+offset, 191);
-          do Screen.drawLine(i+offset, 192, i+2+offset, 192);
-          let i = i + 6;
+          do Screen.drawLine(i+offset, 63, i+(markingLength-1)+offset, 63);
+          do Screen.drawLine(i+offset, 64, i+(markingLength-1)+offset, 64);
+          do Screen.drawLine(i+offset, 127, i+(markingLength-1)+offset, 127);
+          do Screen.drawLine(i+offset, 128, i+(markingLength-1)+offset, 128);
+          do Screen.drawLine(i+offset, 191, i+(markingLength-1)+offset, 191);
+          do Screen.drawLine(i+offset, 192, i+(markingLength-1)+offset, 192);
+          let i = i + (markingLength-1) + offset + spaceLength;
      }
      return;
    }
@@ -31,7 +31,7 @@ class Road
    method void moveMarking()
    {
      let offset = offset + 1;
-     if (offset = 3)
+     if (offset = spaceLength)
      {
           let offset = 0;
      }
