@@ -29,15 +29,15 @@ class PlayerCar
 
    method void move(int dx, int dy)
    {
-      //if ((1 < x + dx) & (x + dx + xSize < 511))
-      //{
+      if ((1 < (x + dx)) & ((x + dx + xSize) < 511))
+      {
          let x = x + dx;
-      //}
+      }
 
-      //if ((1 < y + dy) & (y + dy + ySize < 255))
-      //{
+      if ((1 < (y + dy)) & ((y + dy + ySize) < 255))
+      {
          let y = y + dy;
-      //}
+      }
       return;
    }
 }
