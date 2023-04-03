@@ -6,6 +6,12 @@ class Utils
       {
         let number = number - base;
       }
+
+      while (number < 0)
+      {
+        let number = number + base;
+      }
+      
       return number;
     }
 

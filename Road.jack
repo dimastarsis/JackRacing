@@ -1,110 +1,40 @@
 class Road
 {
-    field int markingPosition; 
+    field int offset; 
 
-    /** Initialize road  */
    constructor Road new()
    {
-        let markingPosition = 0;
-        do drawBorders();
-        do drawMarkings();
-        return this;
+     let offset = 0;
+     return this;
    }
 
-    /** Draw left and right game borders */
-   method void drawBorders()
+   // TODO: make marking longer (to do less iterations in loop)
+   // TODO: create field markingLength
+   method void drawMarking()
    {
-        var int memAddress;
-        var int offset; 
-        
-        let offset = 0;
-        let memAddress = 16384;
-        
-        while (offset < 8192)
-        {
-            do Memory.poke(memAddress + offset, 3); //draw part of left border
-            do Memory.poke(memAddress + 11 + offset, 6); //draw part of right border
-            let offset = offset + 32;
-        }
+     var int i;
 
-        return;
-   }  
-
-    /** Draw road markings */
-   method void drawMarkings()
-   {
-        var int memAddress;
-        var int offset;
-
-        let offset = 0;
-        let memAddress = 16384;
-
-        while (offset < 8192)
-        {
-            //draw part of first marking
-            do Memory.poke(memAddress +2 + offset + (32*markingPosition), 8192);
-            do Memory.poke(memAddress +34 + offset + (32*markingPosition), 8192);
-            do Memory.poke(memAddress +66 + offset + (32*markingPosition), 8192);
-            do Memory.poke(memAddress +98 + offset + (32*markingPosition), 8192);
-            
-            //draw part of second marking
-            do Memory.poke(memAddress +5 + offset + (32*markingPosition), 512);
-            do Memory.poke(memAddress +37 + offset + (32*markingPosition), 512);
-            do Memory.poke(memAddress +69 + offset + (32*markingPosition), 512);
-            do Memory.poke(memAddress +101 + offset + (32*markingPosition), 512);
-            
-            //draw part of third marking
-            do Memory.poke(memAddress +8 + offset + (32*markingPosition), 32);
-            do Memory.poke(memAddress +40 + offset + (32*markingPosition), 32);
-            do Memory.poke(memAddress +72 + offset + (32*markingPosition), 32);
-            do Memory.poke(memAddress +104 + offset + (32*markingPosition), 32);
-
-            let offset = offset + 512;
-        }
-        return;
-   }
-    
-
-    /** Erase road markings */
-   method void eraseMarkings()
-   {
-        var int memAddress;
-        var int offset;
-
-        let offset = 0;
-        let memAddress = 16384;
-
-        while (offset < 8192)
-        {
-            //draw part of first marking
-            do Memory.poke(memAddress +2 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +34 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +66 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +98 + offset + (32*markingPosition), 0);
-            
-            //draw part of second marking
-            do Memory.poke(memAddress +5 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +37 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +69 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +101 + offset + (32*markingPosition), 0);
-            
-            //draw part of third marking
-            do Memory.poke(memAddress +8 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +40 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +72 + offset + (32*markingPosition), 0);
-            do Memory.poke(memAddress +104 + offset + (32*markingPosition), 0);
-
-            let offset = offset + 512;
-        }
-        return;
+     let i = offset;
+     while (i + 2 + offset < 511)
+     {
+          do Screen.drawLine(i+offset, 63, i+2+offset, 63);
+          do Screen.drawLine(i+offset, 64, i+2+offset, 64);
+          do Screen.drawLine(i+offset, 127, i+2+offset, 127);
+          do Screen.drawLine(i+offset, 128, i+2+offset, 128);
+          do Screen.drawLine(i+offset, 191, i+2+offset, 191);
+          do Screen.drawLine(i+offset, 192, i+2+offset, 192);
+          let i = i + 6;
+     }
+     return;
    }
 
-    /** The marking is moving down */
-   method void markingsMove()
+   method void moveMarking()
    {
-        do eraseMarkings();
-        let markingPosition = Utils.mod(markingPosition + 1, 12);    
-        do drawMarkings();
-        return;
+     let offset = offset + 1;
+     if (offset = 3)
+     {
+          let offset = 0;
+     }
+     return;
    }
 }

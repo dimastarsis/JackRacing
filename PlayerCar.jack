@@ -1,59 +1,15 @@
 class PlayerCar 
 {
-   field int x, y, _multindex;
-   field Array _locations, _values, _multipliers;
+   field int x, y;
+   field int xSize, ySize;
    
    constructor PlayerCar new(int Ax, int Ay)
    {
       let x = Ax;
-      let y = Ay;
-
-      let _multipliers = Array.new(8);
-      let _multipliers[0] = 1;
-      let _multipliers[1] = 2;
-      let _multipliers[2] = 4;
-      let _multipliers[3] = 8;
-      let _multipliers[4] = 16;
-      let _multipliers[5] = 32;
-      let _multipliers[6] = 64;
-      let _multipliers[7] = 128;
-
-      let _locations = Array.new(16);
-      let _locations[0] = 0;
-      let _locations[1] = 32;
-      let _locations[2] = 64;
-      let _locations[3] = 96;
-      let _locations[4] = 128;
-      let _locations[5] = 160;
-      let _locations[6] = 192;
-      let _locations[7] = 224;
-      let _locations[8] = 256;
-      let _locations[9] = 288;
-      let _locations[10] = 320;
-      let _locations[11] = 352;
-      let _locations[12] = 384;
-      let _locations[13] = 416;
-      let _locations[14] = 448;
-      let _locations[15] = 480;
-
-      let _values = Array.new(16);
-
-      let _values[0] = 195;
-      let _values[1] = 255;
-      let _values[2] = 255;
-      let _values[3] = 255;
-      let _values[4] = 255;
-      let _values[5] = 255;
-      let _values[6] = 255;
-      let _values[7] = 255;
-      let _values[8] = 255;
-      let _values[9] = 255;
-      let _values[10] = 255;
-      let _values[11] = 255;
-      let _values[12] = 255;
-      let _values[13] = 255;
-      let _values[14] = 255;   
-      let _values[15] = 0;         
+      let y = Ay; 
+      
+      let xSize = 48;
+      let ySize = 32;
 
       do draw();
       return this;
@@ -67,70 +23,21 @@ class PlayerCar
 
    method void draw()
     {
-        var int location;
-        var int memAddress; 
-        var int i;
-
-        let location = (32 * y) + x;
-        let memAddress = 16384+location;
-        
-        let i = 0;
-        while (i < 15)
-        {
-         do Memory.poke(memAddress + _locations[i], _values[i] * _multipliers[_multindex]);
-         let i = i + 1;
-        }
-
-        return;
+      do Screen.drawRectangle(x, y, x + xSize, y + ySize);
+      return;
     }
 
-   method void erase()
+   method void move(int dx, int dy)
    {
-        var int location;
-        var int memAddress; 
-        var int i;
+      //if ((1 < x + dx) & (x + dx + xSize < 511))
+      //{
+         let x = x + dx;
+      //}
 
-        let location = (32 * y) + x;
-        let memAddress = 16384+location;
-
-        let i = 0;
-        while (i < 15)
-        {
-         do Memory.poke(memAddress + _locations[i], 0);
-         let i = i + 1;
-        }
-      return;
-   }
-
-   method void move(int direction)
-   {
-      if (direction = 2) { do moveSide(2); }
-      if (direction = 4) { do moveSide(-2); }
-      return;
-   }
-
-   method void moveSide(int dx) {
-    var int memAddress; 
-    if ((x + dx) > 1 & (x + 8 + dx) < 510)
-    {   
-        do erase(); 
-
-        let _multindex = _multindex + dx;
-
-        while (_multindex > 7)
-        {
-         let _multindex = _multindex - 8;
-         let x = x + 1;
-        }
-
-        while (_multindex < 0)
-        {
-         let _multindex = _multindex + 8;
-         let x = x - 1;
-        }
-
-        do draw();
-      }
+      //if ((1 < y + dy) & (y + dy + ySize < 255))
+      //{
+         let y = y + dy;
+      //}
       return;
    }
 }
