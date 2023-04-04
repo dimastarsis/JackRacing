@@ -14,6 +14,11 @@ class EnemyCar
       return this;
    }
 
+   method boolean onScreen()
+   {
+      return (((1 < x) & ((x + xSize) < 508)) & ((1 < y) & ((y + ySize) < 255)));
+   }
+   
    method int GetX()
    {
       return x;
@@ -53,10 +58,10 @@ class EnemyCar
 
    method void draw()
     {
-      if (~alive) //<--------------------------------------------
-      { 
-         return;
-      }
+      //if (~alive) //<--------------------------------------------
+      //{ 
+         //return;
+      //}
 
       //draw the back of the car
       do Utils.drawRectangleByOffset(1, 4, 3, 29, x, y);
@@ -137,11 +142,7 @@ class EnemyCar
 
    method void move(int dx, int dy)
    {
-      if (~((1 < (x + dx)) & ((x + dx + xSize) < 511)))
-      {
-         do die();
-      }
-
+      let y = y + dy;
       let x = x + dx;
       return;
    }

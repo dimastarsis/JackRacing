@@ -4,7 +4,7 @@ class RaceGame
    field int enemiesCount;
    field PlayerCar playerCar;
    field Array enemies;
-   field Array enemySpawnYCoords; // (0, 16), (0, 80), (0, 144), (0, 208)
+   field Array enemySpawnYCoords;
    field Road road;           
    field Random random;          
 
@@ -122,9 +122,19 @@ class RaceGame
          if (currentEnemy.isAlive())
          {
             do currentEnemy.move(5, 0);
-            // не случился ли конфликт
-            do tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), playerCar.GetX(), playerCar.GetY());
+
             // не доехал ли до края
+            if (~(currentEnemy.onScreen()))
+            {
+               do currentEnemy.die();
+            }
+            
+            // не случился ли конфликт
+            else
+            {
+               do tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), playerCar.GetX(), playerCar.GetY());
+            }
+            
             do currentEnemy.draw();
          }
 
@@ -167,13 +177,13 @@ class RaceGame
 
       var boolean isConflictFromBelow, isConflictFromAbove;
 
-      let leftEnemyX = xEnemy + 48;
+      let leftEnemyX = xEnemy + 47;
       let topLeftEnemyY = yEnemy;
-      let bottomLeftEnemyY = yEnemy + 32;
+      let bottomLeftEnemyY = yEnemy + 31;
 
       let rightPlayerX = xPlayer;
       let topRightPlayerY = yPlayer;
-      let bottomRightPlayerY = yPlayer + 32;
+      let bottomRightPlayerY = yPlayer + 31;
 
       let isConflictFromBelow = (~(topRightPlayerY < bottomLeftEnemyY)) & (~(topRightPlayerY > topLeftEnemyY)) & (~(rightPlayerX < leftEnemyX));
       let isConflictFromAbove = (~(bottomRightPlayerY < bottomLeftEnemyY)) & (~(topRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX < leftEnemyX));
@@ -181,9 +191,15 @@ class RaceGame
       if (isConflictFromBelow | isConflictFromAbove)
       {
          //let error = Sys.error(0);
-         do Output.printInt(100);
-         do Output.printInt(105);
-         do Output.printInt(100);
+         do Output.printString("_");
+         do Output.printInt(xEnemy);
+         do Output.printString("_");
+         do Output.printInt(yEnemy);
+         do Output.printString("_");
+         do Output.printInt(xPlayer);
+         do Output.printString("_");
+         do Output.printInt(yPlayer);
+         do Output.printString("_");
       }
 
       return;
