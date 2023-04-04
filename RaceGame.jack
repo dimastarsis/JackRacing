@@ -14,9 +14,9 @@ class RaceGame
       var int i;
 
       //initialize player car
-      let playerCar = PlayerCar.new(508, 96);
+      let playerCar = PlayerCar.new(28, 96);
 
-      let enemiesCount = 3;
+      let enemiesCount = 16;
       let enemies = Array.new(enemiesCount);
       let i = 0;
       while (i < enemiesCount)
@@ -97,8 +97,8 @@ class RaceGame
    method void drawFrame(int key)
    {
       if (key = 140)  { let isRunning = false; } // esc key
-      if (key = 131) { do playerCar.move(0, -10); }   // up arrow
-      if (key = 133) { do playerCar.move(0, 10); }   // down arrow   
+      if (key = 131) { do playerCar.move(0, -15); }   // up arrow
+      if (key = 133) { do playerCar.move(0, 15); }   // down arrow   
 
       do Screen.clearScreen();
       do road.moveMarking();
@@ -121,7 +121,7 @@ class RaceGame
 
          if (currentEnemy.isAlive())
          {
-            do currentEnemy.move(5, 0);
+            do currentEnemy.move(10, 0);
 
             // не доехал ли до края
             if (~(currentEnemy.onScreen()))
@@ -185,21 +185,12 @@ class RaceGame
       let topRightPlayerY = yPlayer;
       let bottomRightPlayerY = yPlayer + 31;
 
-      let isConflictFromBelow = (~(topRightPlayerY < bottomLeftEnemyY)) & (~(topRightPlayerY > topLeftEnemyY)) & (~(rightPlayerX < leftEnemyX));
-      let isConflictFromAbove = (~(bottomRightPlayerY < bottomLeftEnemyY)) & (~(topRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX < leftEnemyX));
+      let isConflictFromBelow = (~(topRightPlayerY > bottomLeftEnemyY)) & (~(topRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX > leftEnemyX));
+      let isConflictFromAbove = (~(bottomRightPlayerY > bottomLeftEnemyY)) & (~(bottomRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX > leftEnemyX));
 
       if (isConflictFromBelow | isConflictFromAbove)
       {
-         //let error = Sys.error(0);
-         do Output.printString("_");
-         do Output.printInt(xEnemy);
-         do Output.printString("_");
-         do Output.printInt(yEnemy);
-         do Output.printString("_");
-         do Output.printInt(xPlayer);
-         do Output.printString("_");
-         do Output.printInt(yPlayer);
-         do Output.printString("_");
+         let error = Sys.error(0);
       }
 
       return;

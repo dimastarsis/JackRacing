@@ -16,14 +16,14 @@ class PlayerCar
 
    method int GetX()
    {
-      return x;
+      return x*16;
    }
 
    method int GetY()
    {
       return y;
    }
-   
+
    method void dispose()
    {
       do Memory.deAlloc(this);
