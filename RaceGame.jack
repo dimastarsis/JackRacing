@@ -1,55 +1,166 @@
-class RaceGame {
+class RaceGame
+{
+   field boolean isRunning;
+   field int enemiesCount;
    field PlayerCar playerCar;
-   field EnemyCar enemyCar;
-   field Road road;                     
+   field Array enemies;
+   field Array enemySpawnYCoords; // (0, 16), (0, 80), (0, 144), (0, 208)
+   field Road road;           
+   field Random random;          
 
-   constructor RaceGame new() {
+   constructor RaceGame new()
+   {
+      var EnemyCar currentEnemy;
+      var int i;
+
       //initialize player car
-      let playerCar = PlayerCar.new(64, 64);
+      let playerCar = PlayerCar.new(508, 96);
 
-      //initialize enemy car
-      let enemyCar = EnemyCar.new(32, 32);
+      let enemies = Array.new(16);
+      let i = 0;
+      while (i < 16)
+      {
+         let enemies[i] = EnemyCar.new(0, 0);
+         let currentEnemy = enemies[i];
+         do currentEnemy.die();
+
+         let i = i + 1;
+      }
 
       //initialize road
       let road = Road.new();
+
+      let enemySpawnYCoords = Array.new(4);
+      let enemySpawnYCoords[0] = 16;
+      let enemySpawnYCoords[1] = 80;
+      let enemySpawnYCoords[2] = 144;
+      let enemySpawnYCoords[3] = 208;
 
       return this;
    }
 
    /** Runs the game: handles the user's inputs and moves the car accordingly */
-   method void run() {
+   method void run()
+   {
+      var int randomSeed, tick, frame;
       var char key;  // the key currently pressed by the user
-      var boolean exit;
-      var int tick;
 
-      let exit = false;
+      let randomSeed = handleStartGame();
+      let random = Random.new(randomSeed);
+
+      let isRunning = true;
       let tick = 0;
-      
-      while (~exit) {
+      let frame = 0;
+
+      while (isRunning)
+      {
          let key = Keyboard.keyPressed();
 
-         let tick = tick + 1;
-         
          if (tick = 5000)
          {
-            if (key = 81)  { let exit = true; }     // q key
-            if (key = 130) { do playerCar.move(-10, 0); }   // left arrow
-            if (key = 131) { do playerCar.move(0, -10); }   // up arrow
-            if (key = 132) { do playerCar.move(10, 0); }   // right arrow
-            if (key = 133) { do playerCar.move(0, 10); }   // down arrow   
-
-            do Screen.clearScreen();
-            do road.moveMarking();
-            do road.drawMarking();
-            do enemyCar.draw();
-            do playerCar.draw();
+            do drawFrame(key);
+            
             let tick = 0;
+            let frame = frame + 1;
          }
+
+         if (frame = 10)
+         {
+            do trySpawnEnemy();
+
+            let frame = 0;
+         }
+
+         let tick = tick + 1;
       }
+
      return;
    }
+
+   method int handleStartGame()
+   {
+      var int randomSeed;
+      
+      while (~(Keyboard.keyPressed() = 128))  // enter key
+      {
+         let randomSeed = randomSeed + 1;
+         if (randomSeed = 32767)
+         {
+            let randomSeed = 0;
+         }
+      }
+
+      return randomSeed;
+   }
+
+   method void drawFrame(int key)
+   {
+      if (key = 140)  { let isRunning = false; } // esc key
+      if (key = 131) { do playerCar.move(0, -10); }   // up arrow
+      if (key = 133) { do playerCar.move(0, 10); }   // down arrow   
+
+      do Screen.clearScreen();
+      do road.moveMarking();
+      do road.drawMarking();
+      do playerCar.draw();
+      do drawEnemies();
+
+      return;
+   }
+
+   method void drawEnemies()
+   {
+      var EnemyCar currentEnemy;
+      var int i;
+
+      let i = 0;
+      while (i < enemiesCount)
+      {
+         if (~(enemies[i] = 0))
+         {
+            let currentEnemy = enemies[i];
+            
+            do currentEnemy.move(5, 0);
+            // не случился ли конфликт
+            // не доехал ли до края
+            if (currentEnemy.isAlive())
+            {
+               do currentEnemy.draw();
+            }
+         }
+         let i = i + 1;
+      }
+
+      return;
+   }
+
+   method void trySpawnEnemy()
+   {
+      var EnemyCar newEnemy, currentEnemy;
+      var int case, i;
+
+      let case = random.next(10);
+      if (case < 4)
+      {
+         let i = 0;
+         let currentEnemy = enemies[i];
+         while ((i < 15) & (currentEnemy.isAlive()))
+         {
+            let i = i + 1;
+            let currentEnemy = enemies[i];
+         }
+
+         if (~(currentEnemy.isAlive()))
+         {
+            do currentEnemy.reborn(0, enemySpawnYCoords[case]);
+         }
+      }
+
+      return;
+   }
    
-   method void dispose() {
+   method void dispose()
+   {
       // do car.dispose();
       do Memory.deAlloc(this);
       return;

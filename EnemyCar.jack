@@ -2,20 +2,37 @@ class EnemyCar
 {
    field int x, y;
    field int xSize, ySize;
-   field boolean isAlive;
+   field boolean alive;
    
    constructor EnemyCar new(int Ax, int Ay)
    {
-      let isAlive = true;
+      let xSize = 48;
+      let ySize = 32;
+
+      do reborn(Ax, Ay);
+
+      return this;
+   }
+
+   method boolean isAlive()
+   {
+      return alive;
+   }
+
+   method void reborn(int Ax, int Ay)
+   {
+      let alive = true;
 
       let x = Ax;
       let y = Ay;
 
-      let xSize = 48;
-      let ySize = 32;
+      return;
+   }
 
-      do draw();
-      return this;
+   method void die()
+   {
+      let alive = false;
+      return;
    }
 
    method void dispose()
@@ -26,7 +43,7 @@ class EnemyCar
 
    method void draw()
     {
-      if (~isAlive) //<--------------------------------------------
+      if (~alive) //<--------------------------------------------
       {  
          return;
       }
@@ -112,7 +129,7 @@ class EnemyCar
    {
       if (~((1 < (x + dx)) & ((x + dx + xSize) < 511)))
       {
-         let isAlive = false;
+         do die();
       }
 
       let x = x + dx;
