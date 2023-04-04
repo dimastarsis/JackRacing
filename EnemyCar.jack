@@ -2,11 +2,14 @@ class EnemyCar
 {
    field int x, y, _multindex;
    field Array _locations, _values, _multipliers;
+   field Utils utils;
    
    constructor EnemyCar new(int Ax, int Ay)
    {
       let x = Ax;
       let y = Ay;
+
+      let utils = Utils.new();
 
       do draw();
       return this;
@@ -20,62 +23,30 @@ class EnemyCar
 
    method void draw()
     {
-        var int location;
-        var int memAddress; 
-        var int i;
+      //draw the back of the car
+      do utils.drawRectangleByOffset(1, 4, 3, 29, x, y);
+      do utils.drawLineByOffset(2, 3, 4, 3, x, y);
+      do utils.drawLineByOffset(2, 30, 4, 30, x, y);
+      do utils.drawLineByOffset(4, 4, 4, 7, x, y);
+      do utils.drawLineByOffset(4, 26, 4, 29, x, y);
 
-        let location = (32 * y) + x;
-        let memAddress = 16384+location;
+      //draw the top wing of the car
+      do utils.drawRectangleByOffset(5, 2, 41, 4, x, y);
+      do utils.drawRectangleByOffset(42, 3, 46, 4, x, y);
+      do utils.drawPixelByOffset(47, 4, x, y);
+      do utils.drawLineByOffset(8, 1, 17, 1, x, y);
+      do utils.drawLineByOffset(30, 1, 39, 1, x, y);
+
+      //draw the lower wing of the car
+      do utils.drawRectangleByOffset(5, 29, 41, 31, x, y);
+      do utils.drawRectangleByOffset(42, 29, 46, 30, x, y);
+      do utils.drawPixelByOffset(47, 29, x, y);
+      do utils.drawLineByOffset(8, 32, 17, 32, x, y);
+      do utils.drawLineByOffset(30, 32, 39, 32, x, y);
         
-        do Memory.poke(memAddress, 1820);
-        do Memory.poke(memAddress +32, 2210);
-        do Memory.poke(memAddress +64, 4161);
-        do Memory.poke(memAddress +96, 4097);
-        do Memory.poke(memAddress +128, 4097);
-        do Memory.poke(memAddress +160, 2050);
-        do Memory.poke(memAddress +192, 1820);
-        do Memory.poke(memAddress +224, 272);
-        do Memory.poke(memAddress +256, 272);
-        do Memory.poke(memAddress +288, 272);
-        do Memory.poke(memAddress +320, 272);
-        do Memory.poke(memAddress +352, 272);
-        do Memory.poke(memAddress +384, 520);
-        do Memory.poke(memAddress +416, 520);
-        do Memory.poke(memAddress +448, 336);
-        do Memory.poke(memAddress +480, 224);
-
-        return;
+      return;
     }
 
-   method void erase()
-   {
-        var int location;
-        var int memAddress; 
-        var int i;
-
-        let location = (32 * y) + x;
-        let memAddress = 16384+location;
-
-        do Memory.poke(memAddress, 0);
-        do Memory.poke(memAddress +32, 0);
-        do Memory.poke(memAddress +64, 0);
-        do Memory.poke(memAddress +96, 0);
-        do Memory.poke(memAddress +128, 0);
-        do Memory.poke(memAddress +160, 0);
-        do Memory.poke(memAddress +192, 0);
-        do Memory.poke(memAddress +224, 0);
-        do Memory.poke(memAddress +256, 0);
-        do Memory.poke(memAddress +288, 0);
-        do Memory.poke(memAddress +320, 0);
-        do Memory.poke(memAddress +352, 0);
-        do Memory.poke(memAddress +384, 0);
-        do Memory.poke(memAddress +416, 0);
-        do Memory.poke(memAddress +448, 0);
-        do Memory.poke(memAddress +480, 0);
-      return;
-   }
-
-   //do Screen.drawRectangle(x, y, x + xSize, y + ySize);
    method void moveForward(int dy)
    {
     var int memAddress; 

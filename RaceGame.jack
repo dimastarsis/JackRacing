@@ -1,10 +1,14 @@
 class RaceGame {
-   field PlayerCar playerCar; // the car of this game
+   field PlayerCar playerCar;
+   field EnemyCar enemyCar;
    field Road road;                     
 
    constructor RaceGame new() {
-      //initialize car
-      let playerCar = PlayerCar.new(32, 32);
+      //initialize player car
+      let playerCar = PlayerCar.new(64, 64);
+
+      //initialize enemy car
+      let enemyCar = EnemyCar.new(32, 32);
 
       //initialize road
       let road = Road.new();
@@ -37,6 +41,7 @@ class RaceGame {
             do Screen.clearScreen();
             do road.moveMarking();
             do road.drawMarking();
+            do enemyCar.draw();
             do playerCar.draw();
             let tick = 0;
          }
