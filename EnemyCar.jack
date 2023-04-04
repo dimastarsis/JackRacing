@@ -98,9 +98,7 @@ class EnemyCar
     var int memAddress; 
     if ((y - dy) > 1 & (y + 16 - dy) < 255)
     {
-        //do erase();
         let y = y - dy;
-        //do draw();
     }
     return;
    }
