@@ -1,12 +1,18 @@
 class EnemyCar 
 {
-   field int x, y, _multindex;
-   field Array _locations, _values, _multipliers;
+   field int x, y;
+   field int xSize, ySize;
+   field boolean isAlive;
    
    constructor EnemyCar new(int Ax, int Ay)
    {
+      let isAlive = true;
+
       let x = Ax;
       let y = Ay;
+
+      let xSize = 48;
+      let ySize = 32;
 
       do draw();
       return this;
@@ -20,6 +26,11 @@ class EnemyCar
 
    method void draw()
     {
+      if (~isAlive) //<--------------------------------------------
+      {  
+         return;
+      }
+
       //draw the back of the car
       do Utils.drawRectangleByOffset(1, 4, 3, 29, x, y);
       do Utils.drawLineByOffset(2, 3, 4, 3, x, y);
@@ -97,13 +108,14 @@ class EnemyCar
       return;
     }
 
-   method void moveForward(int dy)
+   method void move(int dx, int dy)
    {
-      var int memAddress; 
-      if ((y - dy) > 1 & (y + 16 - dy) < 255)
+      if (~((1 < (x + dx)) & ((x + dx + xSize) < 511)))
       {
-         let y = y - dy;
+         let isAlive = false;
       }
+
+      let x = x + dx;
       return;
    }
 }
