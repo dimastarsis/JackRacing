@@ -1,10 +1,5 @@
 class Utils
 {
-    constructor Utils new()
-    {
-      return this;
-    }
-    
     function int mod(int number, int base)
     {
       while (number > (base-1))
@@ -29,19 +24,19 @@ class Utils
       return number;
     }
 
-    method void drawRectangleByOffset(int x1, int y1, int x2, int y2, int xOffset, int yOffset)
+    function void drawRectangleByOffset(int x1, int y1, int x2, int y2, int xOffset, int yOffset)
     {
       do Screen.drawRectangle(x1 + xOffset, y1 + yOffset, x2 + xOffset, y2 + yOffset);
       return;
     }
 
-    method void drawLineByOffset(int x1, int y1, int x2, int y2, int xOffset, int yOffset)
+    function void drawLineByOffset(int x1, int y1, int x2, int y2, int xOffset, int yOffset)
     {
       do Screen.drawLine(x1 + xOffset, y1 + yOffset, x2 + xOffset, y2 + yOffset);
       return;
     }
 
-    method void drawPixelByOffset(int x1, int y1, int xOffset, int yOffset)
+    function void drawPixelByOffset(int x1, int y1, int xOffset, int yOffset)
     {
       do Screen.drawPixel(x1 + xOffset, y1 + yOffset);
       return;
