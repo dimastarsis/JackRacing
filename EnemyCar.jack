@@ -89,17 +89,21 @@ class EnemyCar
       do Utils.drawLineByOffset(5, 28, 13, 28, x, y);
       do Utils.drawLineByOffset(21, 28, 23, 28, x, y);
       do Utils.drawLineByOffset(32, 28, 34, 28, x, y);
+      do Utils.drawPixelByOffset(13, 6, x, y);
+      do Utils.drawPixelByOffset(14, 7, x, y);
+      do Utils.drawPixelByOffset(14, 26, x, y);
+      do Utils.drawPixelByOffset(13, 27, x, y);
 
       return;
     }
 
    method void moveForward(int dy)
    {
-    var int memAddress; 
-    if ((y - dy) > 1 & (y + 16 - dy) < 255)
-    {
-        let y = y - dy;
-    }
-    return;
+      var int memAddress; 
+      if ((y - dy) > 1 & (y + 16 - dy) < 255)
+      {
+         let y = y - dy;
+      }
+      return;
    }
 }
