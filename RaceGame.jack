@@ -16,7 +16,7 @@ class RaceGame
       //initialize player car
       let playerCar = PlayerCar.new(508, 96);
 
-      let enemiesCount = 16;
+      let enemiesCount = 3;
       let enemies = Array.new(enemiesCount);
       let i = 0;
       while (i < enemiesCount)
@@ -123,6 +123,7 @@ class RaceGame
          {
             do currentEnemy.move(5, 0);
             // не случился ли конфликт
+            do tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), playerCar.GetX(), playerCar.GetY());
             // не доехал ли до края
             do currentEnemy.draw();
          }
@@ -153,6 +154,36 @@ class RaceGame
          {
             do currentEnemy.reborn(0, enemySpawnYCoords[case]);
          }
+      }
+
+      return;
+   }
+
+   method void tryFindConflict(int xEnemy, int yEnemy, int xPlayer, int yPlayer)
+   {
+      var int leftEnemyX, topLeftEnemyY, bottomLeftEnemyY;
+      var int rightPlayerX, topRightPlayerY, bottomRightPlayerY;
+      var int error;
+
+      var boolean isConflictFromBelow, isConflictFromAbove;
+
+      let leftEnemyX = xEnemy + 48;
+      let topLeftEnemyY = yEnemy;
+      let bottomLeftEnemyY = yEnemy + 32;
+
+      let rightPlayerX = xPlayer;
+      let topRightPlayerY = yPlayer;
+      let bottomRightPlayerY = yPlayer + 32;
+
+      let isConflictFromBelow = (~(topRightPlayerY < bottomLeftEnemyY)) & (~(topRightPlayerY > topLeftEnemyY)) & (~(rightPlayerX < leftEnemyX));
+      let isConflictFromAbove = (~(bottomRightPlayerY < bottomLeftEnemyY)) & (~(topRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX < leftEnemyX));
+
+      if (isConflictFromBelow | isConflictFromAbove)
+      {
+         //let error = Sys.error(0);
+         do Output.printInt(100);
+         do Output.printInt(105);
+         do Output.printInt(100);
       }
 
       return;
