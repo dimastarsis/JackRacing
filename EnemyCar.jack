@@ -44,7 +44,7 @@ class EnemyCar
    method void draw()
     {
       if (~alive) //<--------------------------------------------
-      {  
+      { 
          return;
       }
 

@@ -16,11 +16,12 @@ class RaceGame
       //initialize player car
       let playerCar = PlayerCar.new(508, 96);
 
-      let enemies = Array.new(16);
+      let enemiesCount = 16;
+      let enemies = Array.new(enemiesCount);
       let i = 0;
-      while (i < 16)
+      while (i < enemiesCount)
       {
-         let enemies[i] = EnemyCar.new(0, 0);
+         let enemies[i] = EnemyCar.new(16, 16);
          let currentEnemy = enemies[i];
          do currentEnemy.die();
 
@@ -116,18 +117,16 @@ class RaceGame
       let i = 0;
       while (i < enemiesCount)
       {
-         if (~(enemies[i] = 0))
+         let currentEnemy = enemies[i];
+
+         if (currentEnemy.isAlive())
          {
-            let currentEnemy = enemies[i];
-            
             do currentEnemy.move(5, 0);
             // не случился ли конфликт
             // не доехал ли до края
-            if (currentEnemy.isAlive())
-            {
-               do currentEnemy.draw();
-            }
+            do currentEnemy.draw();
          }
+
          let i = i + 1;
       }
 
@@ -144,7 +143,7 @@ class RaceGame
       {
          let i = 0;
          let currentEnemy = enemies[i];
-         while ((i < 15) & (currentEnemy.isAlive()))
+         while ((i < (enemiesCount-1)) & (currentEnemy.isAlive()))
          {
             let i = i + 1;
             let currentEnemy = enemies[i];
