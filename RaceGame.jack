@@ -6,7 +6,8 @@ class RaceGame
    field Array enemies;
    field Array enemySpawnYCoords;
    field Road road;           
-   field Random random;          
+   field Random random;     
+   field int score;     
 
    constructor RaceGame new()
    {
@@ -16,6 +17,7 @@ class RaceGame
       //initialize player car
       let playerCar = PlayerCar.new(28, 96);
 
+      //initialize enemies cars
       let enemiesCount = 16;
       let enemies = Array.new(enemiesCount);
       let i = 0;
@@ -36,6 +38,9 @@ class RaceGame
       let enemySpawnYCoords[1] = 80;
       let enemySpawnYCoords[2] = 144;
       let enemySpawnYCoords[3] = 208;
+
+      //initialize player score
+      let score = 0;
 
       return this;
    }
@@ -79,6 +84,9 @@ class RaceGame
          let tick = tick + 1;
       }
 
+      do Screen.clearScreen();
+      do run();
+
      return;
    }
 
@@ -109,6 +117,7 @@ class RaceGame
       do road.drawMarking();
       do playerCar.draw();
       do drawEnemies();
+      do drawPlayerScore();
 
       return;
    }
@@ -130,6 +139,7 @@ class RaceGame
             // не доехал ли до края
             if (~(currentEnemy.onScreen()))
             {
+               let score = score + 1;
                do currentEnemy.die();
             }
             
@@ -177,7 +187,6 @@ class RaceGame
    {
       var int leftEnemyX, topLeftEnemyY, bottomLeftEnemyY;
       var int rightPlayerX, topRightPlayerY, bottomRightPlayerY;
-      var int error;
 
       var boolean isConflictFromBelow, isConflictFromAbove;
 
@@ -194,7 +203,7 @@ class RaceGame
 
       if (isConflictFromBelow | isConflictFromAbove)
       {
-         let error = Sys.error(0);
+         let isRunning = false;
       }
 
       return;
@@ -202,12 +211,20 @@ class RaceGame
 
    method void drawWelcomeWindow()
    {
-      do Output.moveCursor(13, 8);
+      do Output.moveCursor(10, 18);
       do Output.printString("Controls: up, down arrows");
-      do Output.moveCursor(14, 8);
+      do Output.moveCursor(11, 18);
       do Output.printString("Press esc to exit");
-      do Output.moveCursor(15, 8);
+      do Output.moveCursor(12, 18);
       do Output.printString("Press enter to start game");
+      return;
+   }
+
+   method void drawPlayerScore()
+   {
+      do Output.moveCursor(0, 0);
+      do Output.printString("score: ");
+      do Output.printInt(score);
       return;
    }
    
