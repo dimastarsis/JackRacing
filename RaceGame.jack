@@ -9,7 +9,7 @@ class RaceGame
    field Random random;     
    field Interface interface;
    field int score;
-   field int roadSpeed, enemiesSpeed;     
+   field int roadSpeed, enemiesSpeed, enemiesAcceleration;     
 
    constructor RaceGame new()
    {
@@ -56,10 +56,27 @@ class RaceGame
    /** Runs the game: handles the user's inputs and moves the car accordingly */
    method void run()
    {
-      var int randomSeed, tick, frame;
+      var int randomSeed, tick, frame, difficulty;
       var char key;  // the key currently pressed by the user
 
       do interface.drawWelcomeWindow();
+
+      let enemiesAcceleration = 0;
+      let difficulty = interface.getDifficulty();
+      if (difficulty = 0)
+      {
+         let enemiesAcceleration = 1;
+      }
+
+      if (difficulty = 1)
+      {
+         let enemiesAcceleration = 2;
+      }
+
+      if (difficulty = 2)
+      {
+         let enemiesAcceleration = 3;
+      }
 
       let randomSeed = handleStartGame();
       let random = Random.new(randomSeed);
@@ -159,8 +176,8 @@ class RaceGame
 
                if ((Utils.mod(score, 5) = 0) & (score > 0))
                {
-                  let roadSpeed = roadSpeed + 1;
-                  let enemiesSpeed = enemiesSpeed + 1;
+                  let roadSpeed = roadSpeed + enemiesAcceleration;
+                  let enemiesSpeed = enemiesSpeed + enemiesAcceleration;
                }
             }
          
@@ -186,7 +203,7 @@ class RaceGame
       var EnemyCar newEnemy, currentEnemy;
       var int case, i;
 
-      let case = random.next(10);
+      let case = random.next(8);
       if (case < 4)
       {
          let i = 0;

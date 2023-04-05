@@ -6,7 +6,8 @@ class Interface
    field int cursorPositionX;
    field Array cursorPositionsY;
    field string messageEasyLvl, messageNormalLvl, messageHardLvl;
-   field int numberOFCurrentLvl; //0 - easy, 1 - normal, 2 - hard
+   field int numberOFCurrentLvl; // 0 - easy, 1 - normal, 2 - hard
+   field Array difficultyMessages;
 
    constructor Interface new()
    {
@@ -24,6 +25,11 @@ class Interface
       let finalMessage2 = "Your game score: ";
       let finalMessage3 = "Press enter to continue";
 
+      let difficultyMessages = Array.new(3);
+      let difficultyMessages[0] = "easy / ";
+      let difficultyMessages[1] = "medium / ";
+      let difficultyMessages[2] = "hard / ";
+
       //initialize cursor positions
       let cursorPositionX = 200; 
       let cursorPositionsY = Array.new(3);
@@ -34,6 +40,11 @@ class Interface
       let numberOFCurrentLvl = 0;
 
       return this;
+   }
+
+   method int getDifficulty()
+   {
+      return numberOFCurrentLvl;
    }
 
    method void drawWelcomeWindow()
@@ -78,9 +89,10 @@ class Interface
    method void drawPlayerScore(int score)
    {
       do Output.moveCursor(0, 0);
+      do Output.printString(difficultyMessages[numberOFCurrentLvl]);
       do Output.printString(scoreMessage);
       do Output.printInt(score);
-
+   
       return;
    }
 
@@ -154,6 +166,8 @@ class Interface
       do Memory.deAlloc(messageHardLvl);
 
       do Memory.deAlloc(cursorPositionsY);
+
+      do Memory.deAlloc(difficultyMessages);
 
       return;
    }
