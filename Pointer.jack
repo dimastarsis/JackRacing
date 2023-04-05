@@ -1,0 +1,59 @@
+class Pointer
+{
+   field int cursorPositionX;
+   field Array cursorPositionsY;
+   
+   constructor Pointer new()
+   {
+      //initialize cursor positions
+      let cursorPositionX = 200; 
+      let cursorPositionsY = Array.new(3);
+      let cursorPositionsY[0] = 135;
+      let cursorPositionsY[1] = 145;
+      let cursorPositionsY[2] = 155;
+
+      return this;
+   }
+
+   /**
+    method void draw(int xOffset, int yOffset)
+   {
+      do Utils.drawLineByOffset(0, 0, 0, 8, xOffset, yOffset);
+      do Utils.drawLineByOffset(1, 1, 1, 7, xOffset, yOffset);
+      do Utils.drawLineByOffset(2, 2, 2, 6, xOffset, yOffset);
+      do Utils.drawLineByOffset(3, 3, 3, 5, xOffset, yOffset);
+      do Utils.drawPixelByOffset(4, 4, xOffset, yOffset);
+
+      return;
+   }
+
+   method void move(boolean goToNext)
+   {
+      do Screen.setColor(false);
+      do drawPointer(cursorPositionX, cursorPositionsY[numberOfCurrentLvl]);
+      do Screen.setColor(true);
+
+      if (goToNext)
+      {
+        let numberOfCurrentLvl = numberOfCurrentLvl + 1;
+      }
+      else
+      {
+        et numberOfCurrentLvl = numberOfCurrentLvl - 1;
+      }
+
+      if (numberOfCurrentLvl = -1)
+      {
+        let numberOfCurrentLvl = 2;
+      }
+      if (numberOfCurrentLvl = 3)
+      {
+        let numberOfCurrentLvl = 0;
+      }
+
+      do drawPointer(cursorPositionX, cursorPositionsY[numberOfCurrentLvl]);
+
+      return;
+   }
+   */
+}

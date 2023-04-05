@@ -3,12 +3,20 @@ class Interface
    field string welcomeMessage1, welcomeMessage2, welcomeMessage3;
    field string scoreMessage;
    field string finalMessage1, finalMessage2, finalMessage3;
+   field int cursorPositionX;
+   field Array cursorPositionsY;
+   field string messageEasyLvl, messageNormalLvl, messageHardLvl;
+   field int numberOFCurrentLvl; //0 - easy, 1 - normal, 2 - hard
 
    constructor Interface new()
    {
       let welcomeMessage1 = "Controls: up / down arrows ";
-      let welcomeMessage2 = "Press esc to exit";
-      let welcomeMessage3 = "Press enter to start game";
+      let welcomeMessage2 = "Press esc to exit the current race";
+      let welcomeMessage3 = "Choose the level of difficulty:";
+
+      let messageEasyLvl = "Easy";
+      let messageNormalLvl = "Normal";
+      let messageHardLvl = "Hard";
 
       let scoreMessage = "score: ";
 
@@ -16,17 +24,53 @@ class Interface
       let finalMessage2 = "Your game score: ";
       let finalMessage3 = "Press enter to continue";
 
+      //initialize cursor positions
+      let cursorPositionX = 200; 
+      let cursorPositionsY = Array.new(3);
+      let cursorPositionsY[0] = 135;
+      let cursorPositionsY[1] = 145;
+      let cursorPositionsY[2] = 155;
+
+      let numberOFCurrentLvl = 0;
+
       return this;
    }
 
    method void drawWelcomeWindow()
    {
-      do Output.moveCursor(10, 18);
+      var char key;  // the key currently pressed by the user
+      var int tick;
+
+      do Output.moveCursor(9, 16);
       do Output.printString(welcomeMessage1);
-      do Output.moveCursor(11, 18);
+      do Output.moveCursor(10, 16);
       do Output.printString(welcomeMessage2);
-      do Output.moveCursor(12, 18);
+      do Output.moveCursor(11, 16);
       do Output.printString(welcomeMessage3);
+
+      do Output.moveCursor(12, 28);
+      do Output.printString(messageEasyLvl);
+      do Output.moveCursor(13, 28);
+      do Output.printString(messageNormalLvl);
+      do Output.moveCursor(14, 28);
+      do Output.printString(messageHardLvl);
+
+      do drawPointer(cursorPositionX, cursorPositionsY[numberOFCurrentLvl]);
+
+      while (~(Keyboard.keyPressed() = 128)) // enter key
+      {
+         let key = Keyboard.keyPressed();
+
+         if (tick = 6000)
+         {
+            if (key = 131) { do movePointer(false); }  // up arrow
+            if (key = 133) { do movePointer(true); }  // down arrow
+
+            let tick = 0;
+         }
+
+         let tick = tick + 1;
+      }
 
       return;
    }
@@ -53,16 +97,64 @@ class Interface
       return;
    }
 
+   method void drawPointer(int xOffset, int yOffset)
+   {
+      do Utils.drawLineByOffset(0, 0, 0, 8, xOffset, yOffset);
+      do Utils.drawLineByOffset(1, 1, 1, 7, xOffset, yOffset);
+      do Utils.drawLineByOffset(2, 2, 2, 6, xOffset, yOffset);
+      do Utils.drawLineByOffset(3, 3, 3, 5, xOffset, yOffset);
+      do Utils.drawPixelByOffset(4, 4, xOffset, yOffset);
+
+      return;
+   }
+
+   method void movePointer(boolean goToNext)
+   {
+      do Screen.setColor(false);
+      do drawPointer(cursorPositionX, cursorPositionsY[numberOFCurrentLvl]);
+      do Screen.setColor(true);
+
+      if (goToNext)
+      {
+         let numberOFCurrentLvl = numberOFCurrentLvl + 1;
+      }
+      else
+      {
+         let numberOFCurrentLvl = numberOFCurrentLvl - 1;
+      }
+
+      if (numberOFCurrentLvl = -1)
+      {
+         let numberOFCurrentLvl = 2;
+      }
+      if (numberOFCurrentLvl = 3)
+      {
+         let numberOFCurrentLvl = 0;
+      }
+
+      do drawPointer(cursorPositionX, cursorPositionsY[numberOFCurrentLvl]);
+
+      return;
+   }
+
    method void dispose()
    {
       do Memory.deAlloc(welcomeMessage1);
-      do Memory.deAlloc(welcomeMessage1);
-      do Memory.deAlloc(welcomeMessage1);
+      do Memory.deAlloc(welcomeMessage2);
+      do Memory.deAlloc(welcomeMessage3);
 
       do Memory.deAlloc(scoreMessage);
 
       do Memory.deAlloc(finalMessage1);
-      do Memory.deAlloc(finalMessage1);
-      do Memory.deAlloc(finalMessage1);
+      do Memory.deAlloc(finalMessage2);
+      do Memory.deAlloc(finalMessage3);
+
+      do Memory.deAlloc(messageEasyLvl);
+      do Memory.deAlloc(messageNormalLvl);
+      do Memory.deAlloc(messageHardLvl);
+
+      do Memory.deAlloc(cursorPositionsY);
+
+      return;
    }
 }
