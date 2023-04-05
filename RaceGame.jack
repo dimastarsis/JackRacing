@@ -7,7 +7,8 @@ class RaceGame
    field Array enemySpawnYCoords;
    field Road road;           
    field Random random;     
-   field int score;     
+   field int score;
+   field int roadSpeed;     
 
    constructor RaceGame new()
    {
@@ -32,6 +33,7 @@ class RaceGame
 
       // initialize road
       let road = Road.new();
+      let roadSpeed = 10;
 
       // initialize enemy spawn coordinates
       let enemySpawnYCoords = Array.new(4);
@@ -75,6 +77,7 @@ class RaceGame
          if (frame = 10)
          {
             do trySpawnEnemy();
+            let roadSpeed = roadSpeed + 1;
 
             let frame = 0;
          }
@@ -119,7 +122,7 @@ class RaceGame
       if (key = 133) { do player.move(0, 15); }  // down arrow   
 
       do Screen.clearScreen();
-      do road.moveMarking(10);
+      do road.moveMarking(roadSpeed);
       do road.drawMarking();
       do player.draw();
       do drawEnemies();

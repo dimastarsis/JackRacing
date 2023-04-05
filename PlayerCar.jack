@@ -146,7 +146,7 @@ class PlayerCar
          let x = x + dx;
       }
 
-      if ((-16 < (y+dy)) & ((y + dy + ySize) < 240))
+      if ((0 < (y+dy)) & ((y + dy + ySize) < 255))
       {
          let y = y + dy;
       }
