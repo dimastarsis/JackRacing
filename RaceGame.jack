@@ -46,12 +46,16 @@ class RaceGame
       var int randomSeed, tick, frame;
       var char key;  // the key currently pressed by the user
 
+      do drawWelcomeWindow();
+
       let randomSeed = handleStartGame();
       let random = Random.new(randomSeed);
 
       let isRunning = true;
       let tick = 0;
       let frame = 0;
+
+
 
       while (isRunning)
       {
@@ -193,6 +197,17 @@ class RaceGame
          let error = Sys.error(0);
       }
 
+      return;
+   }
+
+   method void drawWelcomeWindow()
+   {
+      do Output.moveCursor(13, 8);
+      do Output.printString("Controls: up, down arrows");
+      do Output.moveCursor(14, 8);
+      do Output.printString("Press esc to exit");
+      do Output.moveCursor(15, 8);
+      do Output.printString("Press enter to start game");
       return;
    }
    
