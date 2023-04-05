@@ -3,7 +3,7 @@ class Interface
    function void drawWelcomeWindow()
    {
       do Output.moveCursor(10, 18);
-      do Output.printString("Controls: up, down arrows");
+      do Output.printString("Controls: up/down arrows ");
       do Output.moveCursor(11, 18);
       do Output.printString("Press esc to exit");
       do Output.moveCursor(12, 18);

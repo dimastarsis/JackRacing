@@ -3,13 +3,14 @@ class Main
    function void main()
    {
       var RaceGame game;
-      
+
       while (true)
       {
+         do Screen.clearScreen();
          do Interface.drawWelcomeWindow();
+         do Sys.wait(100);
          let game = RaceGame.new();
          do game.run();
-         do Interface.drawFinalWindow(game.GetScore());
          do game.dispose();
       }
 

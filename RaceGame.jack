@@ -83,6 +83,8 @@ class RaceGame
       }
 
       do Screen.clearScreen();
+      do Interface.drawFinalWindow(score);
+      do handleEndGame();
 
      return;
    }
@@ -101,6 +103,13 @@ class RaceGame
       }
 
       return randomSeed;
+   }
+
+   method void handleEndGame()
+   {
+      while (~(Keyboard.keyPressed() = 128)) { } // enter key
+
+      return;
    }
 
    method void drawFrame(int key)
