@@ -47,50 +47,47 @@ class EnemyCar
    method void die()
    {
       let alive = false;
+
       return;
    }
 
    method void dispose()
    {
       do Memory.deAlloc(this);
+
       return;
    }
 
    method void draw()
     {
-      //if (~alive) //<--------------------------------------------
-      //{ 
-         //return;
-      //}
-
-      //draw the back of the car
+      // draw the back side of the car
       do Utils.drawRectangleByOffset(1, 4, 3, 29, x, y);
       do Utils.drawLineByOffset(2, 3, 4, 3, x, y);
       do Utils.drawLineByOffset(2, 30, 4, 30, x, y);
       do Utils.drawLineByOffset(4, 4, 4, 7, x, y);
       do Utils.drawLineByOffset(4, 26, 4, 29, x, y);
 
-      //draw the top wing of the car
+      // draw the top wing of the car
       do Utils.drawRectangleByOffset(5, 2, 41, 4, x, y);
       do Utils.drawRectangleByOffset(42, 3, 46, 4, x, y);
       do Utils.drawPixelByOffset(47, 4, x, y);
       do Utils.drawLineByOffset(8, 1, 17, 1, x, y);
       do Utils.drawLineByOffset(30, 1, 39, 1, x, y);
 
-      //draw the lower wing of the car
+      // draw the lower wing of the car
       do Utils.drawRectangleByOffset(5, 29, 41, 31, x, y);
       do Utils.drawRectangleByOffset(42, 29, 46, 30, x, y);
       do Utils.drawPixelByOffset(47, 29, x, y);
       do Utils.drawLineByOffset(8, 32, 17, 32, x, y);
       do Utils.drawLineByOffset(30, 32, 39, 32, x, y);
         
-      //draw the air intakes of the car
+      // draw the air intakes of the car
       do Utils.drawLineByOffset(39, 8, 39, 10, x, y);
       do Utils.drawLineByOffset(40, 9, 40, 11, x, y);
       do Utils.drawLineByOffset(39, 23, 39, 25, x, y);
       do Utils.drawLineByOffset(40, 22, 40, 24, x, y);
 
-      //draw the front of the car
+      // draw the front side of the car
       do Utils.drawLineByOffset(42, 5, 44, 5, x, y);
       do Utils.drawPixelByOffset(47, 5, x, y);
       do Utils.drawLineByOffset(48, 5, 48, 28, x, y);
@@ -144,6 +141,7 @@ class EnemyCar
    {
       let y = y + dy;
       let x = x + dx;
+      
       return;
    }
 }

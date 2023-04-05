@@ -1,6 +1,6 @@
 class Interface
 {
-    function void drawWelcomeWindow()
+   function void drawWelcomeWindow()
    {
       do Output.moveCursor(10, 18);
       do Output.printString("Controls: up, down arrows");

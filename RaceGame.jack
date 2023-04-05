@@ -2,7 +2,7 @@ class RaceGame
 {
    field boolean isRunning;
    field int enemiesCount;
-   field PlayerCar playerCar;
+   field PlayerCar player;
    field Array enemies;
    field Array enemySpawnYCoords;
    field Road road;           
@@ -14,10 +14,10 @@ class RaceGame
       var EnemyCar currentEnemy;
       var int i;
 
-      //initialize player car
-      let playerCar = PlayerCar.new(28, 96);
+      // initialize player car
+      let player = PlayerCar.new(28, 96);
 
-      //initialize enemies cars
+      // initialize enemies
       let enemiesCount = 16;
       let enemies = Array.new(enemiesCount);
       let i = 0;
@@ -30,16 +30,17 @@ class RaceGame
          let i = i + 1;
       }
 
-      //initialize road
+      // initialize road
       let road = Road.new();
 
+      // initialize enemy spawn coordinates
       let enemySpawnYCoords = Array.new(4);
       let enemySpawnYCoords[0] = 16;
       let enemySpawnYCoords[1] = 80;
       let enemySpawnYCoords[2] = 144;
       let enemySpawnYCoords[3] = 208;
 
-      //initialize player score
+      // initialize player score
       let score = 0;
 
       return this;
@@ -51,15 +52,12 @@ class RaceGame
       var int randomSeed, tick, frame;
       var char key;  // the key currently pressed by the user
 
-      do drawWelcomeWindow();
-
       let randomSeed = handleStartGame();
       let random = Random.new(randomSeed);
 
       let isRunning = true;
       let tick = 0;
       let frame = 0;
-
 
 
       while (isRunning)
@@ -85,7 +83,6 @@ class RaceGame
       }
 
       do Screen.clearScreen();
-      do run();
 
      return;
    }
@@ -108,16 +105,16 @@ class RaceGame
 
    method void drawFrame(int key)
    {
-      if (key = 140)  { let isRunning = false; } // esc key
-      if (key = 131) { do playerCar.move(0, -15); }   // up arrow
-      if (key = 133) { do playerCar.move(0, 15); }   // down arrow   
+      if (key = 140) { let isRunning = false; }  // esc key
+      if (key = 131) { do player.move(0, -15); }  // up arrow
+      if (key = 133) { do player.move(0, 15); }  // down arrow   
 
       do Screen.clearScreen();
-      do road.moveMarking();
+      do road.moveMarking(10);
       do road.drawMarking();
-      do playerCar.draw();
+      do player.draw();
       do drawEnemies();
-      do drawPlayerScore();
+      do Interface.drawPlayerScore(score);
 
       return;
    }
@@ -136,17 +133,15 @@ class RaceGame
          {
             do currentEnemy.move(10, 0);
 
-            // не доехал ли до края
             if (~(currentEnemy.onScreen()))
             {
                let score = score + 1;
                do currentEnemy.die();
             }
             
-            // не случился ли конфликт
             else
             {
-               do tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), playerCar.GetX(), playerCar.GetY());
+               do tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), player.GetX(), player.GetY());
             }
             
             do currentEnemy.draw();
@@ -209,29 +204,20 @@ class RaceGame
       return;
    }
 
-   method void drawWelcomeWindow()
+   method int GetScore()
    {
-      do Output.moveCursor(10, 18);
-      do Output.printString("Controls: up, down arrows");
-      do Output.moveCursor(11, 18);
-      do Output.printString("Press esc to exit");
-      do Output.moveCursor(12, 18);
-      do Output.printString("Press enter to start game");
-      return;
-   }
-
-   method void drawPlayerScore()
-   {
-      do Output.moveCursor(0, 0);
-      do Output.printString("score: ");
-      do Output.printInt(score);
-      return;
+      return score;
    }
    
    method void dispose()
    {
-      // do car.dispose();
+      do player.dispose();
+      do Memory.deAlloc(enemies);
+      do Memory.deAlloc(enemySpawnYCoords);
+      do road.dispose();
+      do random.dispose();
       do Memory.deAlloc(this);
+      
       return;
    }
 }

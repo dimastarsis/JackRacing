@@ -16,7 +16,7 @@ class PlayerCar
 
    method int GetX()
    {
-      return x*16;
+      return 16 * x;
    }
 
    method int GetY()
@@ -27,6 +27,7 @@ class PlayerCar
    method void dispose()
    {
       do Memory.deAlloc(this);
+
       return;
    }
 
@@ -134,6 +135,7 @@ class PlayerCar
       do Memory.poke(memAddress +930, 16383);
       do Memory.poke(memAddress +962, 8191);
       do Memory.poke(memAddress +994, 2044);
+
       return;
     }
 
@@ -148,6 +150,7 @@ class PlayerCar
       {
          let y = y + dy;
       }
+
       return;
    }
 }
