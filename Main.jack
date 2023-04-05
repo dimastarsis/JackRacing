@@ -7,7 +7,6 @@ class Main
       while (true)
       {
          do Screen.clearScreen();
-         do Interface.drawWelcomeWindow();
          do Sys.wait(250);
          let game = RaceGame.new();
          do game.run();
