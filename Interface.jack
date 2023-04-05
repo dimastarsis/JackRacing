@@ -1,0 +1,36 @@
+class Interface
+{
+    function void drawWelcomeWindow()
+   {
+      do Output.moveCursor(10, 18);
+      do Output.printString("Controls: up, down arrows");
+      do Output.moveCursor(11, 18);
+      do Output.printString("Press esc to exit");
+      do Output.moveCursor(12, 18);
+      do Output.printString("Press enter to start game");
+
+      return;
+   }
+
+   function void drawPlayerScore(int score)
+   {
+      do Output.moveCursor(0, 0);
+      do Output.printString("score: ");
+      do Output.printInt(score);
+
+      return;
+   }
+
+   function void drawFinalWindow(int score)
+   {
+      do Output.moveCursor(10, 18);
+      do Output.printString("You lose");
+      do Output.moveCursor(11, 18);
+      do Output.printString("Your game score: ");
+      do Output.printInt(score);
+      do Output.moveCursor(12, 18);
+      do Output.printString("Press enter to continue");
+
+      return;
+   }
+}
