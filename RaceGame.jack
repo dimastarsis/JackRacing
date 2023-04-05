@@ -16,7 +16,7 @@ class RaceGame
       var int i;
 
       // initialize player car
-      let player = PlayerCar.new(28, 96);
+      let player = PlayerCar.new(26, 96);
 
       // initialize enemies
       let enemiesCount = 16;
@@ -80,8 +80,6 @@ class RaceGame
          if (frame = 10)
          {
             do trySpawnEnemy();
-            let roadSpeed = roadSpeed + 1;
-            let enemiesSpeed = enemiesSpeed + 1;
 
             let frame = 0;
          }
@@ -153,6 +151,13 @@ class RaceGame
             {
                let score = score + 1;
                do currentEnemy.die();
+
+
+               if ((Utils.mod(score, 5) = 0) & (score > 0))
+               {
+                  let roadSpeed = roadSpeed + 1;
+                  let enemiesSpeed = enemiesSpeed + 1;
+               }
             }
          
             if (tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), player.GetX(), player.GetY()))

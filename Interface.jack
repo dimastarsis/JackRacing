@@ -1,5 +1,7 @@
 class Interface
 {
+   // TODO: create constructor (to make strings static)
+
    function void drawWelcomeWindow()
    {
       do Output.moveCursor(10, 18);
