@@ -46,6 +46,8 @@ class EnemyCar
 
    method void die()
    {
+      let x = 0;
+      let y = 0;
       let alive = false;
 
       return;
@@ -141,7 +143,7 @@ class EnemyCar
    {
       let y = y + dy;
       let x = x + dx;
-      
+
       return;
    }
 }

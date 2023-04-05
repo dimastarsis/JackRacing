@@ -8,7 +8,7 @@ class RaceGame
    field Road road;           
    field Random random;     
    field int score;
-   field int roadSpeed;     
+   field int roadSpeed, enemiesSpeed;     
 
    constructor RaceGame new()
    {
@@ -20,6 +20,7 @@ class RaceGame
 
       // initialize enemies
       let enemiesCount = 16;
+      let enemiesSpeed = 10;
       let enemies = Array.new(enemiesCount);
       let i = 0;
       while (i < enemiesCount)
@@ -54,6 +55,8 @@ class RaceGame
       var int randomSeed, tick, frame;
       var char key;  // the key currently pressed by the user
 
+      do Interface.drawWelcomeWindow();
+
       let randomSeed = handleStartGame();
       let random = Random.new(randomSeed);
 
@@ -78,6 +81,7 @@ class RaceGame
          {
             do trySpawnEnemy();
             let roadSpeed = roadSpeed + 1;
+            let enemiesSpeed = enemiesSpeed + 1;
 
             let frame = 0;
          }
@@ -143,19 +147,22 @@ class RaceGame
 
          if (currentEnemy.isAlive())
          {
-            do currentEnemy.move(10, 0);
+            do currentEnemy.move(enemiesSpeed, 0);
 
             if (~(currentEnemy.onScreen()))
             {
                let score = score + 1;
                do currentEnemy.die();
             }
-            
-            else
+         
+            if (tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), player.GetX(), player.GetY()))
             {
-               do tryFindConflict(currentEnemy.GetX(), currentEnemy.GetY(), player.GetX(), player.GetY());
+               let isRunning = false;
             }
-            
+         }
+
+         if (currentEnemy.isAlive())
+         {
             do currentEnemy.draw();
          }
 
@@ -190,7 +197,7 @@ class RaceGame
       return;
    }
 
-   method void tryFindConflict(int xEnemy, int yEnemy, int xPlayer, int yPlayer)
+   method boolean tryFindConflict(int xEnemy, int yEnemy, int xPlayer, int yPlayer)
    {
       var int leftEnemyX, topLeftEnemyY, bottomLeftEnemyY;
       var int rightPlayerX, topRightPlayerY, bottomRightPlayerY;
@@ -208,17 +215,7 @@ class RaceGame
       let isConflictFromBelow = (~(topRightPlayerY > bottomLeftEnemyY)) & (~(topRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX > leftEnemyX));
       let isConflictFromAbove = (~(bottomRightPlayerY > bottomLeftEnemyY)) & (~(bottomRightPlayerY < topLeftEnemyY)) & (~(rightPlayerX > leftEnemyX));
 
-      if (isConflictFromBelow | isConflictFromAbove)
-      {
-         let isRunning = false;
-      }
-
-      return;
-   }
-
-   method int GetScore()
-   {
-      return score;
+      return isConflictFromBelow | isConflictFromAbove;
    }
    
    method void dispose()
