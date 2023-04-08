@@ -1,0 +1,35 @@
+function Pointer.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 200
+pop this 0
+push constant 3
+call Array.new 1
+pop this 1
+push constant 0
+push this 1
+add
+push constant 135
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 1
+add
+push constant 145
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push this 1
+add
+push constant 155
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+return
