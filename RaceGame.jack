@@ -59,7 +59,7 @@ class RaceGame
       var int randomSeed, tick, frame, difficulty;
       var char key;  // the key currently pressed by the user
 
-      do interface.drawWelcomeWindow();
+      let randomSeed = interface.drawWelcomeWindow();
 
       let enemiesAcceleration = 0;
       let difficulty = interface.getDifficulty();
@@ -78,7 +78,7 @@ class RaceGame
          let enemiesAcceleration = 3;
       }
 
-      let randomSeed = handleStartGame();
+      //let randomSeed = handleStartGame();
       let random = Random.new(randomSeed);
 
       let isRunning = true;
@@ -115,7 +115,7 @@ class RaceGame
      return;
    }
 
-   method int handleStartGame()
+   method int handleStartGame() //now no using
    {
       var int randomSeed;
       
