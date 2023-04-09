@@ -4,6 +4,7 @@ class EnemyCar
    field int xSize, ySize;
    field boolean alive;
    
+   
    constructor EnemyCar new(int Ax, int Ay)
    {
       let xSize = 48;

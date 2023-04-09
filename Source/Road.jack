@@ -2,6 +2,7 @@ class Road
 {
    field int offset, markingLength, spaceLength; 
    
+   
    constructor Road new()
    {
       let offset = 0;
@@ -28,6 +29,7 @@ class Road
          do Screen.drawLine(i, 64, i + (markingLength-1), 64);
          do Screen.drawLine(i, 128, i + (markingLength-1), 128);
          do Screen.drawLine(i, 192, i + (markingLength-1), 192);
+
          let i = i + spaceLength;
       }
       

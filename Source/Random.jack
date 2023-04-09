@@ -2,6 +2,7 @@ class Random
 {
    field int fib_previous, fib_current;
 
+   
    constructor Random new(int seed)
    {
       let fib_previous = seed;
